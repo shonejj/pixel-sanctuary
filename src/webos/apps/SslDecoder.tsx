@@ -197,6 +197,7 @@ function parseCert(der: Uint8Array) {
 }
 
 async function fp(der: Uint8Array, alg: string) {
-  const buf = await crypto.subtle.digest(alg, der);
+  const ab = der.buffer.slice(der.byteOffset, der.byteOffset + der.byteLength) as ArrayBuffer;
+  const buf = await crypto.subtle.digest(alg, ab);
   return Array.from(new Uint8Array(buf)).map((x) => x.toString(16).padStart(2, "0")).join(":");
 }
