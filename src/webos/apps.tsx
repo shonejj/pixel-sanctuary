@@ -108,24 +108,32 @@ import { useState as useS } from "react";
 import { ExternalLink, AppWindowMac } from "lucide-react";
 
 export function CustomAppRenderer({ params }: { windowId: string; params?: { mode: "html" | "url"; source: string } }) {
-  const [blocked, setBlocked] = useS(false);
+  const [showHelp, setShowHelp] = useS(false);
   if (!params) return <div className="p-4">No source</div>;
   if (params.mode === "url") {
+    let host = "";
+    try { host = new URL(params.source).hostname; } catch {}
     return (
-      <div className="relative w-full h-full bg-white">
+      <div className="relative w-full h-full bg-white flex flex-col">
         <iframe
           src={params.source}
-          className="w-full h-full border-0 bg-white"
-          sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+          className="w-full h-full border-0 bg-white flex-1"
           referrerPolicy="no-referrer"
-          onError={() => setBlocked(true)}
+          allow="clipboard-read; clipboard-write; fullscreen"
         />
-        {blocked && (
-          <div className="absolute inset-0 bg-card flex flex-col items-center justify-center p-6 text-center text-sm gap-3">
-            <div>This site refused to load in a frame (X-Frame-Options).</div>
-            <a href={params.source} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary underline">
-              <ExternalLink size={14}/>Open in new tab
-            </a>
+        <div className="absolute top-2 right-2 flex gap-1.5 z-10">
+          <a href={params.source} target="_blank" rel="noopener noreferrer"
+            className="bg-black/70 text-white text-xs px-2.5 py-1 rounded-md flex items-center gap-1 backdrop-blur hover:bg-black/85">
+            <ExternalLink size={11}/>Open externally
+          </a>
+          <button onClick={() => setShowHelp(v => !v)}
+            className="bg-black/70 text-white text-xs px-2.5 py-1 rounded-md backdrop-blur hover:bg-black/85">Help</button>
+        </div>
+        {showHelp && (
+          <div className="absolute inset-x-4 bottom-4 bg-card border rounded-xl p-3 shadow-xl text-xs space-y-1.5 z-10">
+            <div className="font-medium">Page not loading?</div>
+            <div className="text-muted-foreground">Sites like Google, YouTube, Twitter, Facebook block embedding via <span className="mono">X-Frame-Options</span> / CSP. There is no client-side workaround — that is a security setting of the target site.</div>
+            <div>Try sites that allow embedding (wikipedia.org, codepen.io, your own deployments) or open <span className="mono">{host}</span> externally.</div>
           </div>
         )}
       </div>
