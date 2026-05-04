@@ -112,6 +112,20 @@
 [data-shell="hyprland"] { --radius: 0.3rem; }
 [data-shell="hyprland"].dark { --background: oklch(0.1 0.02 280); }
 
+/* UI style variants */
+[data-uistyle="material"] { --radius: 0.5rem; }
+[data-uistyle="material"] button, [data-uistyle="material"] .card { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08); text-transform: none; letter-spacing: 0.02em; }
+[data-uistyle="japanese"] { --radius: 0.15rem; font-family: 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', system-ui, sans-serif; }
+[data-uistyle="japanese"] * { letter-spacing: 0.01em; }
+[data-uistyle="japanese"] button { border-width: 1px !important; box-shadow: none !important; }
+[data-uistyle="cartoon"] { --radius: 1.25rem; font-family: 'Comic Sans MS', 'Chalkboard SE', system-ui, sans-serif; }
+[data-uistyle="cartoon"] button, [data-uistyle="cartoon"] .card, [data-uistyle="cartoon"] input, [data-uistyle="cartoon"] textarea { border: 2.5px solid currentColor !important; box-shadow: 3px 3px 0 rgba(0,0,0,0.85) !important; }
+[data-uistyle="neumorphic"] { --radius: 1.2rem; }
+[data-uistyle="neumorphic"] button, [data-uistyle="neumorphic"] .card { box-shadow: 6px 6px 14px rgba(0,0,0,0.18), -6px -6px 14px rgba(255,255,255,0.06) !important; border: none !important; }
+[data-uistyle="flat"] { --radius: 0.25rem; }
+[data-uistyle="flat"] button, [data-uistyle="flat"] .card { box-shadow: none !important; }
+[data-uistyle="glass"] .card, [data-uistyle="glass"] [role="dialog"] { backdrop-filter: blur(20px) saturate(160%); }
+
 @layer base {
   * { border-color: var(--color-border); }
   html, body, #root { height: 100%; margin: 0; }
