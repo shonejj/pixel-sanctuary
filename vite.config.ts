@@ -7,23 +7,12 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // Support configurable base URL for GitHub Pages deployment
-// Usage: npm run build:pages (auto-configures /pixel-sanctuary/)
-// Or: VITE_BASE_URL=/custom-path/ npm run build
+// Usage: VITE_BASE_URL=/pixel-sanctuary/ npm run build
+// Default: / (for root domain deployments)
 const baseUrl = process.env.VITE_BASE_URL || "/";
 
 export default defineConfig({
   vite: {
     base: baseUrl,
-    // Ensure proper SPA handling
-    build: {
-      rollupOptions: {
-        output: {
-          // Generate proper asset paths
-          entryFileNames: "assets/[name]-[hash].js",
-          chunkFileNames: "assets/[name]-[hash].js",
-          assetFileNames: "assets/[name]-[hash][extname]",
-        },
-      },
-    },
   },
 });

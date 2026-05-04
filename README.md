@@ -68,55 +68,56 @@ Static-only output — deploy `dist/client/` to GitHub Pages, Cloudflare Pages, 
 bun run build
 ```
 
-### Deploy to GitHub Pages
+### Deploy to GitHub Pages ⭐
 
 This project includes automated GitHub Pages deployment with GitHub Actions.
 
 **Option 1: Automatic (Recommended)**
 - Push to `main` branch
-- GitHub Actions automatically builds and deploys to GitHub Pages
-- Your app will be available at: `https://shonejj.github.io/pixel-sanctuary/`
+- GitHub Actions automatically:
+  - ✅ Builds the app
+  - ✅ Generates `index.html` from client assets
+  - ✅ Deploys to `https://shonejj.github.io/pixel-sanctuary/`
+- Takes ~2-3 minutes
 
 **Option 2: Manual deployment**
 
 ```bash
-# Install gh-pages (one-time setup)
-bun add -d gh-pages
-
-# Build and deploy
+# Build and deploy in one command
 bun run deploy:pages
 ```
 
+Requires `gh-pages` package (will install if missing).
+
 **Configuration:**
-- GitHub Pages base URL is automatically set to `/pixel-sanctuary/`
-- To customize: `VITE_BASE_URL=/custom-path/ bun run build:pages`
-- Ensure GitHub Pages is enabled in repository Settings with the `gh-pages` branch as source
+- Base URL is automatically set to `/pixel-sanctuary/`
+- GitHub Actions uses the official Pages deployment action
+- Works with any React Router routes (client-side routing)
 
-**Build output:**
-- Client-side code goes to `dist/client/`
-- All routes are client-side (React Router handles routing)
-- Works fully offline once loaded
+### Build for other platforms
 
-### Deploy to other platforms
+**Cloudflare Pages:**
+```bash
+bun run build
+# Deploy: dist/client/
+```
 
 **Netlify:**
 ```bash
-# Build command: bun run build
-# Publish directory: dist/client
-# Note: Configure for SPA by setting redirects (see netlify.toml or UI)
+bun run build
+# Settings: Build command: bun run build
+# Publish dir: dist/client
+# Auto-detects SPA routing
 ```
 
 **Vercel:**
 ```bash
-# Build command: bun run build
-# Output directory: dist/client
+bun run build
+# Settings: Build command: bun run build
+# Output dir: dist/client
 ```
 
-**Cloudflare Pages:**
-```bash
-# Build command: bun run build
-# Build output directory: dist/client
-```
+See [DEPLOYMENT.md](DEPLOYMENT.md) for complete deployment guides.
 
 ## 🔒 Privacy
 

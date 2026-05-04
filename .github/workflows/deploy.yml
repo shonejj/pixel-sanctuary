@@ -30,7 +30,12 @@ jobs:
         run: bun install
 
       - name: Build for GitHub Pages
+        env:
+          VITE_BASE_URL: /pixel-sanctuary/
         run: bun run build:pages
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
