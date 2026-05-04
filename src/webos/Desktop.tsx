@@ -11,6 +11,19 @@ import { SettingsPanel } from "./SettingsPanel";
 import { Tour } from "./Tour";
 import { BootLoader } from "./BootLoader";
 import { setBooted, setPalette, closeWindow, toggleMaximize, toggleMinimize, snapWindow } from "./kernel";
+import wpAurora from "@/assets/wp-aurora.jpg";
+import wpJapan from "@/assets/wp-japan.jpg";
+import wpMesh from "@/assets/wp-mesh.jpg";
+import wpLowpoly from "@/assets/wp-lowpoly.jpg";
+import wpCartoon from "@/assets/wp-cartoon.jpg";
+
+export const WALLPAPERS: { id: string; name: string; src: string }[] = [
+  { id: "aurora", name: "Aurora", src: wpAurora },
+  { id: "japan", name: "Sunrise", src: wpJapan },
+  { id: "mesh", name: "Neon Mesh", src: wpMesh },
+  { id: "lowpoly", name: "Low Poly", src: wpLowpoly },
+  { id: "cartoon", name: "Cartoon Hills", src: wpCartoon },
+];
 
 export function Desktop() {
   const windows = useWebOS(s => s.windows);
