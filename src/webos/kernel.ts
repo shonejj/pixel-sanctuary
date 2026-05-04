@@ -20,6 +20,7 @@ export type AppDef = {
   custom?: boolean;
   customMode?: "html" | "url";
   customSource?: string;
+  iconUrl?: string;
 };
 
 export type WindowState = {
