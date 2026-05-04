@@ -245,6 +245,17 @@ export function setWallpaper(w: string) {
   useWebOS.setState({ wallpaper: w });
   localStorage.setItem("webos-wallpaper", JSON.stringify(w));
 }
+export function setWallpaperCustom(dataUrl: string | null) {
+  useWebOS.setState({ wallpaperCustom: dataUrl, wallpaper: dataUrl ? "custom" : "aurora" });
+  if (dataUrl) localStorage.setItem("webos-wallpaper-custom", JSON.stringify(dataUrl));
+  else localStorage.removeItem("webos-wallpaper-custom");
+  localStorage.setItem("webos-wallpaper", JSON.stringify(dataUrl ? "custom" : "aurora"));
+}
+export function setUiStyle(s: UiStyle) {
+  useWebOS.setState({ uiStyle: s });
+  localStorage.setItem("webos-uistyle", JSON.stringify(s));
+  document.documentElement.dataset.uistyle = s;
+}
 
 export function notify(title: string, body?: string) {
   const n: Notif = { id: Math.random().toString(36).slice(2), title, body, ts: Date.now() };
