@@ -303,6 +303,7 @@ export function initPersistence() {
   const s = useWebOS.getState();
   document.documentElement.classList.toggle("dark", s.theme === "dark");
   document.documentElement.dataset.shell = s.shell;
+  document.documentElement.dataset.uistyle = s.uiStyle;
   document.documentElement.style.setProperty("--accent-hue", String(s.accentHue));
   const saved = localStorage.getItem("webos-icons");
   if (saved) { try { useWebOS.setState({ desktopIcons: JSON.parse(saved) }); } catch {} }
