@@ -1,0 +1,21 @@
+# Netlify configuration for pixel-sanctuary
+# Deploy instructions:
+# 1. Connect this repo to Netlify
+# 2. Build command: bun run build
+# 3. Publish directory: dist/client
+# 4. Environment: VITE_BASE_URL=/
+
+[build]
+  command = "bun run build"
+  publish = "dist/client"
+
+# Single Page App routing - redirect all non-existent URLs to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[env]
+  [env.production]
+    environment = { VITE_BASE_URL = "/" }
+
