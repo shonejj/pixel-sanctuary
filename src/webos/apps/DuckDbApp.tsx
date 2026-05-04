@@ -65,6 +65,25 @@ export function DuckDbApp() {
     refreshTables();
   }
 
+  function download(name: string, mime: string, data: string) {
+    const blob = new Blob([data], { type: mime });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = name; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  function exportCsv() {
+    if (!results) return;
+    const esc = (v: any) => { const s = String(v ?? ""); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
+    const csv = [results.headers.map(esc).join(","), ...results.rows.map(r => r.map(esc).join(","))].join("\n");
+    download("query.csv", "text/csv", csv);
+  }
+  function exportJson() {
+    if (!results) return;
+    const data = results.rows.map(r => Object.fromEntries(results.headers.map((h, i) => [h, r[i]])));
+    download("query.json", "application/json", JSON.stringify(data, null, 2));
+  }
+
   return (
     <div className="flex h-full bg-background">
       <div className="w-56 border-r bg-card flex flex-col">
