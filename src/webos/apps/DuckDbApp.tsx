@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play, Upload, Database } from "lucide-react";
+import { Play, Upload, Database, Download } from "lucide-react";
 
 export function DuckDbApp() {
   const [status, setStatus] = useState("Initializing DuckDB WASM…");
