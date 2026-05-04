@@ -42,12 +42,22 @@ async function generateIndexHtml() {
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
     ${styleFile ? `    <link rel="stylesheet" href="${cleanBase}assets/${styleFile}" />` : ""}
+    <link rel="icon" href="${cleanBase}favicon.svg" type="image/svg+xml" />
   </head>
   <body>
     <div id="root"></div>
     ${indexFiles.map((f) => `    <script type="module" src="${cleanBase}assets/${f}"><\/script>`).join("\n")}
   </body>
 </html>`;
+
+    // Copy favicon into the client output, if one exists.
+    try {
+      await fs.copyFile(path.join(__dirname, "../favicon.svg"), path.join(distClientPath, "favicon.svg"));
+      console.log("✅ Copied favicon.svg to dist/client");
+    } catch (error) {
+      // If icon is missing, continue anyway.
+      console.warn("⚠️ favicon.svg not found, skipping favicon copy.");
+    }
 
     // Write the index.html file
     await fs.writeFile(path.join(distClientPath, "index.html"), indexHtml);
