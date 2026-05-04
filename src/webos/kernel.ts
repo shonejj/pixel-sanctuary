@@ -284,12 +284,13 @@ export function setLauncher(v: boolean) { useWebOS.setState({ launcherOpen: v, s
 export function setStartMenu(v: boolean) { useWebOS.setState({ startMenuOpen: v, launcherOpen: false }); }
 export function setSettings(v: boolean) { useWebOS.setState({ settingsOpen: v }); }
 
-export function addCustomApp(meta: Omit<AppDef, "Component" | "icon"> & { iconText?: string }) {
+export function addCustomApp(meta: Omit<AppDef, "Component" | "icon"> & { iconText?: string; iconUrl?: string }) {
   const list = [...useWebOS.getState().customApps, meta as any];
   useWebOS.setState({ customApps: list });
   localStorage.setItem("webos-custom-apps-meta", JSON.stringify(list.map((a) => ({
     id: a.id, name: a.name, category: a.category, custom: true,
     customMode: a.customMode, customSource: a.customSource, accent: a.accent,
+    iconUrl: a.iconUrl,
   }))));
 }
 export function removeCustomApp(id: string) {
