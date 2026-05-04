@@ -8,7 +8,7 @@ import { pushClipboard, notify } from "../kernel";
 type Item = { name: string; type: "folder" | "file"; size?: number; content?: string };
 
 export function FileExplorer() {
-  const [files, setFiles] = useLocalStorage<Record<string, Item[]>>("webos-fs", {
+  const [files, setFiles] = useLocalStorage<Record<string, Item[]>>("webos-fs-v2", {
     "/": [
       { name: "Workspace", type: "folder" },
       { name: "readme.txt", type: "file", size: 256, content: "Welcome to your WebOS file system.\n\nEverything is local — nothing leaves your browser.\nUse the toolbar to create files & folders, upload files, or organize your work." },
