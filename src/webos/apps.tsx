@@ -104,10 +104,32 @@ export const CATEGORY_LABELS: Record<string, string> = {
 };
 
 // Custom-app sandbox component (HTML or URL iframe)
+import { useState as useS } from "react";
+import { ExternalLink, AppWindowMac } from "lucide-react";
+
 export function CustomAppRenderer({ params }: { windowId: string; params?: { mode: "html" | "url"; source: string } }) {
+  const [blocked, setBlocked] = useS(false);
   if (!params) return <div className="p-4">No source</div>;
   if (params.mode === "url") {
-    return <iframe src={params.source} className="w-full h-full border-0 bg-white" sandbox="allow-scripts allow-forms allow-same-origin allow-popups" />;
+    return (
+      <div className="relative w-full h-full bg-white">
+        <iframe
+          src={params.source}
+          className="w-full h-full border-0 bg-white"
+          sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+          referrerPolicy="no-referrer"
+          onError={() => setBlocked(true)}
+        />
+        {blocked && (
+          <div className="absolute inset-0 bg-card flex flex-col items-center justify-center p-6 text-center text-sm gap-3">
+            <div>This site refused to load in a frame (X-Frame-Options).</div>
+            <a href={params.source} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary underline">
+              <ExternalLink size={14}/>Open in new tab
+            </a>
+          </div>
+        )}
+      </div>
+    );
   }
   const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:system-ui;margin:12px;color:#111;background:#fff}</style></head><body>${params.source}</body></html>`;
   return <iframe srcDoc={html} className="w-full h-full border-0 bg-white" sandbox="allow-scripts allow-forms allow-modals" />;
@@ -116,14 +138,15 @@ export function CustomAppRenderer({ params }: { windowId: string; params?: { mod
 export function useRegisterAllApps() {
   const customApps = useWebOS(s => s.customApps);
   useEffect(() => {
-    // built-ins
     import("./kernel").then(({ registerApp }) => {
       ALL_APPS.forEach(registerApp);
-      // custom apps
       customApps.forEach((meta: any) => {
+        const icon = meta.iconUrl
+          ? <img src={meta.iconUrl} alt="" className="w-5 h-5 rounded object-cover" />
+          : <AppWindowMac size={20} color="#fff" />;
         registerApp({
           ...meta,
-          icon: <span style={{ fontSize: 18 }}>🧩</span>,
+          icon,
           Component: (p: any) => <CustomAppRenderer windowId={p.windowId} params={{ mode: meta.customMode, source: meta.customSource }} />,
         });
       });
