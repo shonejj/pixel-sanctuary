@@ -106,7 +106,11 @@ export function DuckDbApp() {
       </div>
       <div className="flex-1 flex flex-col">
         <textarea value={sql} onChange={(e) => setSql(e.target.value)} className="p-3 mono text-sm bg-card border-b min-h-32 outline-none resize-none" spellCheck={false} />
-        <div className="border-b p-2"><Button size="sm" onClick={run} disabled={!ready}><Play size={12} className="mr-1"/>Run query</Button></div>
+        <div className="border-b p-2 flex gap-2 flex-wrap">
+          <Button size="sm" onClick={run} disabled={!ready}><Play size={12} className="mr-1"/>Run query</Button>
+          <Button size="sm" variant="outline" onClick={exportCsv} disabled={!results || !results.rows.length}><Download size={12} className="mr-1"/>CSV</Button>
+          <Button size="sm" variant="outline" onClick={exportJson} disabled={!results || !results.rows.length}><Download size={12} className="mr-1"/>JSON</Button>
+        </div>
         <div className="flex-1 overflow-auto p-2">
           {error && <div className="text-destructive mono text-sm p-3 bg-destructive/10 rounded">{error}</div>}
           {results && (
