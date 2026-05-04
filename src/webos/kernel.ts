@@ -4,6 +4,7 @@ import type { ComponentType, ReactNode } from "react";
 
 export type ShellTheme = "macos" | "windows" | "gnome" | "hyprland";
 export type AppCategory = "tech" | "productivity" | "lifestyle" | "creative" | "system";
+export type UiStyle = "glass" | "material" | "cartoon" | "japanese" | "neumorphic" | "flat";
 
 export type AppDef = {
   id: string;
