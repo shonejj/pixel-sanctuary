@@ -11,11 +11,25 @@ import { SettingsPanel } from "./SettingsPanel";
 import { Tour } from "./Tour";
 import { BootLoader } from "./BootLoader";
 import { setBooted, setPalette, closeWindow, toggleMaximize, toggleMinimize, snapWindow } from "./kernel";
+import wpAurora from "@/assets/wp-aurora.jpg";
+import wpJapan from "@/assets/wp-japan.jpg";
+import wpMesh from "@/assets/wp-mesh.jpg";
+import wpLowpoly from "@/assets/wp-lowpoly.jpg";
+import wpCartoon from "@/assets/wp-cartoon.jpg";
+
+export const WALLPAPERS: { id: string; name: string; src: string }[] = [
+  { id: "aurora", name: "Aurora", src: wpAurora },
+  { id: "japan", name: "Sunrise", src: wpJapan },
+  { id: "mesh", name: "Neon Mesh", src: wpMesh },
+  { id: "lowpoly", name: "Low Poly", src: wpLowpoly },
+  { id: "cartoon", name: "Cartoon Hills", src: wpCartoon },
+];
 
 export function Desktop() {
   const windows = useWebOS(s => s.windows);
   const apps = useWebOS(s => s.apps);
   const wp = useWebOS(s => s.wallpaper);
+  const wpCustom = useWebOS(s => s.wallpaperCustom);
   const shell = useWebOS(s => s.shell);
   const booted = useWebOS(s => s.booted);
   const focusedId = useWebOS(s => s.focusedId);
@@ -53,10 +67,12 @@ export function Desktop() {
 
   if (!booted) return <BootLoader onDone={() => setBooted(true)} />;
 
-  const wpClass = wp === "aurora" ? "desktop-wallpaper" : `wallpaper-${wp}`;
+  const wpFound = WALLPAPERS.find(w => w.id === wp);
+  const wpUrl = wp === "custom" && wpCustom ? wpCustom : wpFound?.src;
 
   return (
-    <div className={`fixed inset-0 ${wpClass} overflow-hidden`}
+    <div className="fixed inset-0 overflow-hidden bg-black"
+      style={wpUrl ? { backgroundImage: `url(${wpUrl})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
       onContextMenu={(e) => { e.preventDefault(); setCtx({ x: e.clientX, y: e.clientY }); }}
       onClick={() => setCtx(null)}
     >

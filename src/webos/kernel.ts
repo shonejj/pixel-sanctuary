@@ -4,6 +4,7 @@ import type { ComponentType, ReactNode } from "react";
 
 export type ShellTheme = "macos" | "windows" | "gnome" | "hyprland";
 export type AppCategory = "tech" | "productivity" | "lifestyle" | "creative" | "system";
+export type UiStyle = "glass" | "material" | "cartoon" | "japanese" | "neumorphic" | "flat";
 
 export type AppDef = {
   id: string;
@@ -19,6 +20,7 @@ export type AppDef = {
   custom?: boolean;
   customMode?: "html" | "url";
   customSource?: string;
+  iconUrl?: string;
 };
 
 export type WindowState = {
@@ -46,8 +48,10 @@ type State = {
   zCounter: number;
   theme: "light" | "dark";
   shell: ShellTheme;
+  uiStyle: UiStyle;
   accentHue: number;
   wallpaper: string;
+  wallpaperCustom: string | null;
   notifications: Notif[];
   clipboardHistory: string[];
   desktopIcons: { appId: string; x: number; y: number }[];
@@ -74,8 +78,10 @@ export const useWebOS = create<State>(() => ({
   zCounter: 10,
   theme: ls("webos-theme", "dark"),
   shell: ls("webos-shell", "macos"),
+  uiStyle: ls("webos-uistyle", "glass"),
   accentHue: ls("webos-hue", 265),
   wallpaper: ls("webos-wallpaper", "aurora"),
+  wallpaperCustom: ls("webos-wallpaper-custom", null),
   notifications: [],
   clipboardHistory: [],
   desktopIcons: [],
@@ -204,7 +210,16 @@ export function setTilingMode(v: boolean) {
 }
 
 export function moveWindow(id: string, x: number, y: number) {
-  useWebOS.setState((s) => ({ windows: s.windows.map((w) => (w.id === id ? { ...w, x, y, tile: null } : w)) }));
+  const vw = window.innerWidth, vh = window.innerHeight;
+  useWebOS.setState((s) => ({
+    windows: s.windows.map((w) => {
+      if (w.id !== id) return w;
+      const minVisible = 80;
+      const nx = Math.min(Math.max(x, -(w.w - minVisible)), vw - minVisible);
+      const ny = Math.min(Math.max(y, 32), vh - 60);
+      return { ...w, x: nx, y: ny, tile: null };
+    }),
+  }));
 }
 export function resizeWindow(id: string, w: number, h: number, x?: number, y?: number) {
   useWebOS.setState((s) => ({
@@ -230,6 +245,17 @@ export function setAccentHue(h: number) {
 export function setWallpaper(w: string) {
   useWebOS.setState({ wallpaper: w });
   localStorage.setItem("webos-wallpaper", JSON.stringify(w));
+}
+export function setWallpaperCustom(dataUrl: string | null) {
+  useWebOS.setState({ wallpaperCustom: dataUrl, wallpaper: dataUrl ? "custom" : "aurora" });
+  if (dataUrl) localStorage.setItem("webos-wallpaper-custom", JSON.stringify(dataUrl));
+  else localStorage.removeItem("webos-wallpaper-custom");
+  localStorage.setItem("webos-wallpaper", JSON.stringify(dataUrl ? "custom" : "aurora"));
+}
+export function setUiStyle(s: UiStyle) {
+  useWebOS.setState({ uiStyle: s });
+  localStorage.setItem("webos-uistyle", JSON.stringify(s));
+  document.documentElement.dataset.uistyle = s;
 }
 
 export function notify(title: string, body?: string) {
@@ -258,12 +284,13 @@ export function setLauncher(v: boolean) { useWebOS.setState({ launcherOpen: v, s
 export function setStartMenu(v: boolean) { useWebOS.setState({ startMenuOpen: v, launcherOpen: false }); }
 export function setSettings(v: boolean) { useWebOS.setState({ settingsOpen: v }); }
 
-export function addCustomApp(meta: Omit<AppDef, "Component" | "icon"> & { iconText?: string }) {
+export function addCustomApp(meta: Omit<AppDef, "Component" | "icon"> & { iconText?: string; iconUrl?: string }) {
   const list = [...useWebOS.getState().customApps, meta as any];
   useWebOS.setState({ customApps: list });
   localStorage.setItem("webos-custom-apps-meta", JSON.stringify(list.map((a) => ({
     id: a.id, name: a.name, category: a.category, custom: true,
     customMode: a.customMode, customSource: a.customSource, accent: a.accent,
+    iconUrl: a.iconUrl,
   }))));
 }
 export function removeCustomApp(id: string) {
@@ -278,6 +305,7 @@ export function initPersistence() {
   const s = useWebOS.getState();
   document.documentElement.classList.toggle("dark", s.theme === "dark");
   document.documentElement.dataset.shell = s.shell;
+  document.documentElement.dataset.uistyle = s.uiStyle;
   document.documentElement.style.setProperty("--accent-hue", String(s.accentHue));
   const saved = localStorage.getItem("webos-icons");
   if (saved) { try { useWebOS.setState({ desktopIcons: JSON.parse(saved) }); } catch {} }
