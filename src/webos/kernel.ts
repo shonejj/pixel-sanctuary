@@ -209,7 +209,16 @@ export function setTilingMode(v: boolean) {
 }
 
 export function moveWindow(id: string, x: number, y: number) {
-  useWebOS.setState((s) => ({ windows: s.windows.map((w) => (w.id === id ? { ...w, x, y, tile: null } : w)) }));
+  const vw = window.innerWidth, vh = window.innerHeight;
+  useWebOS.setState((s) => ({
+    windows: s.windows.map((w) => {
+      if (w.id !== id) return w;
+      const minVisible = 80;
+      const nx = Math.min(Math.max(x, -(w.w - minVisible)), vw - minVisible);
+      const ny = Math.min(Math.max(y, 32), vh - 60);
+      return { ...w, x: nx, y: ny, tile: null };
+    }),
+  }));
 }
 export function resizeWindow(id: string, w: number, h: number, x?: number, y?: number) {
   useWebOS.setState((s) => ({
