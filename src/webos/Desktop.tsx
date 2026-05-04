@@ -67,10 +67,12 @@ export function Desktop() {
 
   if (!booted) return <BootLoader onDone={() => setBooted(true)} />;
 
-  const wpClass = wp === "aurora" ? "desktop-wallpaper" : `wallpaper-${wp}`;
+  const wpFound = WALLPAPERS.find(w => w.id === wp);
+  const wpUrl = wp === "custom" && wpCustom ? wpCustom : wpFound?.src;
 
   return (
-    <div className={`fixed inset-0 ${wpClass} overflow-hidden`}
+    <div className="fixed inset-0 overflow-hidden bg-black"
+      style={wpUrl ? { backgroundImage: `url(${wpUrl})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
       onContextMenu={(e) => { e.preventDefault(); setCtx({ x: e.clientX, y: e.clientY }); }}
       onClick={() => setCtx(null)}
     >
