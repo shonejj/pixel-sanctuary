@@ -47,8 +47,10 @@ type State = {
   zCounter: number;
   theme: "light" | "dark";
   shell: ShellTheme;
+  uiStyle: UiStyle;
   accentHue: number;
   wallpaper: string;
+  wallpaperCustom: string | null;
   notifications: Notif[];
   clipboardHistory: string[];
   desktopIcons: { appId: string; x: number; y: number }[];
