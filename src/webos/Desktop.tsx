@@ -29,6 +29,7 @@ export function Desktop() {
   const windows = useWebOS(s => s.windows);
   const apps = useWebOS(s => s.apps);
   const wp = useWebOS(s => s.wallpaper);
+  const wpCustom = useWebOS(s => s.wallpaperCustom);
   const shell = useWebOS(s => s.shell);
   const booted = useWebOS(s => s.booted);
   const focusedId = useWebOS(s => s.focusedId);
