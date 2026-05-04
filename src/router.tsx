@@ -61,6 +61,7 @@ function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => vo
 export const getRouter = () => {
   const router = createRouter({
     routeTree,
+    basepath: routerBase,
     history:
       typeof window === "undefined"
         ? undefined
