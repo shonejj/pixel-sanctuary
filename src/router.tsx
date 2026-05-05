@@ -65,7 +65,7 @@ export const getRouter = () => {
     history:
       typeof window === "undefined"
         ? undefined
-        : createBrowserHistory({ window, base: routerBase }),
+        : createBrowserHistory({ window }),
     context: {},
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
