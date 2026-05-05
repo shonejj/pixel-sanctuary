@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { downloadBlob } from "../AppShell";
 
 export function QrGenerator() {
-  const [text, setText] = useState("https://lovable.dev");
+  const [text, setText] = useState("https://www.wikipedia.org");
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => { if (ref.current && text) QRCode.toCanvas(ref.current, text, { width: 320, margin: 2 }); }, [text]);
   return (
