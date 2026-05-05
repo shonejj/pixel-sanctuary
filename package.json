@@ -7,7 +7,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "build:dev": "vite build --mode development",
-    "build:pages": "cross-env-shell VITE_BASE_URL=${VITE_BASE_URL:-/pixel-sanctuary/} \"vite build && node scripts/gen-index.mjs\"",
+    "build:pages": "VITE_BASE_URL=${VITE_BASE_URL:-/pixel-sanctuary/} vite build && VITE_BASE_URL=${VITE_BASE_URL:-/pixel-sanctuary/} node scripts/gen-index.mjs",
     "preview": "vite preview",
     "deploy:pages": "npm run build:pages && gh-pages -d dist/client",
     "lint": "eslint .",
