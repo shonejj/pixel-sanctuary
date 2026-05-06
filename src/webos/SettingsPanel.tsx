@@ -137,9 +137,20 @@ export function SettingsPanel() {
               </section>
 
               <section>
-                <label className="block text-sm font-medium mb-2">Accent hue: {hue}°</label>
+                <label className="block text-sm font-medium mb-2">Accent color: {hue}°</label>
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {[
+                    { h: 265, n: "Purple" }, { h: 220, n: "Blue" }, { h: 180, n: "Teal" },
+                    { h: 145, n: "Green" }, { h: 60, n: "Yellow" }, { h: 30, n: "Orange" },
+                    { h: 0, n: "Red" }, { h: 320, n: "Pink" },
+                  ].map(p => (
+                    <button key={p.h} onClick={() => setAccentHue(p.h)} title={p.n}
+                      className={`w-8 h-8 rounded-full border-2 transition ${hue === p.h ? "border-foreground scale-110" : "border-transparent hover:scale-105"}`}
+                      style={{ background: `oklch(0.65 0.22 ${p.h})` }} />
+                  ))}
+                </div>
                 <input type="range" min={0} max={360} value={hue} onChange={(e) => setAccentHue(+e.target.value)} className="w-full" />
-                <div className="h-3 rounded mt-2" style={{ background: `linear-gradient(to right, ${Array.from({length:13},(_,i)=>`oklch(0.65 0.22 ${i*30})`).join(",")})` }} />
+                <div className="h-3 rounded mt-1" style={{ background: `linear-gradient(to right, ${Array.from({length:13},(_,i)=>`oklch(0.65 0.22 ${i*30})`).join(",")})` }} />
               </section>
 
               <section>
