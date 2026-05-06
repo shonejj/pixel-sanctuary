@@ -98,10 +98,10 @@ export function WindowFrame({ win, children }: { win: WindowState; children: Rea
           onDoubleClick={() => toggleMaximize(win.id)}
         >
           {!isWin && (
-            <div className="flex gap-2 items-center">
-              <button aria-label="close" onClick={(e) => { e.stopPropagation(); closeWindow(win.id); }} className="w-3 h-3 rounded-full bg-[var(--traffic-close)] hover:scale-110 transition" />
-              <button aria-label="minimize" onClick={(e) => { e.stopPropagation(); toggleMinimize(win.id); }} className="w-3 h-3 rounded-full bg-[var(--traffic-min)] hover:scale-110 transition" />
-              <button aria-label="maximize" onClick={(e) => { e.stopPropagation(); toggleMaximize(win.id); }} className="w-3 h-3 rounded-full bg-[var(--traffic-max)] hover:scale-110 transition" />
+            <div className="flex gap-2 items-center group/tl">
+              <button aria-label="close" onClick={(e) => { e.stopPropagation(); closeWindow(win.id); }} className="w-3.5 h-3.5 rounded-full bg-[var(--traffic-close)] hover:brightness-110 transition flex items-center justify-center text-[8px] text-black/70"><X size={8} className="opacity-0 group-hover/tl:opacity-100"/></button>
+              <button aria-label="minimize" onClick={(e) => { e.stopPropagation(); toggleMinimize(win.id); }} className="w-3.5 h-3.5 rounded-full bg-[var(--traffic-min)] hover:brightness-110 transition flex items-center justify-center"><Minus size={8} className="opacity-0 group-hover/tl:opacity-100 text-black/70"/></button>
+              <button aria-label="maximize" onClick={(e) => { e.stopPropagation(); toggleMaximize(win.id); }} className="w-3.5 h-3.5 rounded-full bg-[var(--traffic-max)] hover:brightness-110 transition flex items-center justify-center"><Square size={6} className="opacity-0 group-hover/tl:opacity-100 text-black/70"/></button>
             </div>
           )}
           <div className={cn("flex-1 text-xs font-medium text-foreground/80 truncate px-3", isWin ? "text-left" : "text-center")}>{win.title}</div>
