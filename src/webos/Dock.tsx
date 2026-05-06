@@ -51,9 +51,13 @@ export function Dock() {
     <div className="fixed bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-[9999] max-w-[95vw]">
       <div className="glass rounded-2xl px-2 sm:px-3 py-2 flex items-end gap-1 sm:gap-1.5 shadow-2xl overflow-x-auto scrollbar-thin">
         {popular.map(app => {
-          const running = windows.some(w => w.appId === app.id);
+          const runningWins = windows.filter(w => w.appId === app.id);
+          const running = runningWins.length > 0;
           return (
-            <button key={app.id} title={app.name} onClick={() => launchApp(app.id)} className="group relative flex flex-col items-center shrink-0">
+            <button key={app.id} title={`${app.name}${running ? " (right-click to close)" : ""}`}
+              onClick={() => launchApp(app.id)}
+              onContextMenu={(e) => { e.preventDefault(); runningWins.forEach(w => closeWindow(w.id)); }}
+              className="group relative flex flex-col items-center shrink-0">
               <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-150 border border-white/10 shadow-md group-hover:scale-125 group-hover:-translate-y-2" style={{ background: app.accent }}>
                 {app.icon}
               </div>
