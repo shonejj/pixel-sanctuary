@@ -88,11 +88,14 @@ function WindowsTaskbar() {
           {windows.map(w => {
             const a = apps[w.appId]; if (!a) return null;
             return (
-              <button key={w.id} onClick={() => useWebOS.setState({ focusedId: w.id, windows: useWebOS.getState().windows.map(x => x.id === w.id ? {...x, minimized: false} : x) })}
-                className="h-9 px-3 flex items-center gap-2 rounded bg-accent/50 hover:bg-accent text-xs">
-                <div className="w-4 h-4 rounded flex items-center justify-center" style={{ background: a.accent }}>{a.icon}</div>
-                <span className="hidden sm:inline">{a.name}</span>
-              </button>
+              <div key={w.id} className="group relative h-9 flex items-center">
+                <button onClick={() => useWebOS.setState({ focusedId: w.id, windows: useWebOS.getState().windows.map(x => x.id === w.id ? {...x, minimized: false} : x) })}
+                  className="h-9 px-3 pr-7 flex items-center gap-2 rounded bg-accent/50 hover:bg-accent text-xs">
+                  <div className="w-4 h-4 rounded flex items-center justify-center" style={{ background: a.accent }}>{a.icon}</div>
+                  <span className="hidden sm:inline">{a.name}</span>
+                </button>
+                <button onClick={(e) => { e.stopPropagation(); closeWindow(w.id); }} className="absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 rounded opacity-0 group-hover:opacity-100 hover:bg-destructive hover:text-destructive-foreground flex items-center justify-center"><X size={10}/></button>
+              </div>
             );
           })}
         </div>
