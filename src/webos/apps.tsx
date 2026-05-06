@@ -103,6 +103,19 @@ export const ALL_APPS: AppDef[] = [
   { id: "openapi", name: "OpenAPI Viewer", icon: I(FileJson), category: "tech", Component: OpenApiViewer, accent: "linear-gradient(135deg,#65a30d,#0e7490)" },
   { id: "diff", name: "Diff Checker", icon: I(GitCompare), category: "tech", Component: DiffChecker, accent: "linear-gradient(135deg,#be185d,#7c3aed)" },
   { id: "pwd", name: "Password Generator", icon: I(KeySquare), category: "tech", Component: PasswordGen, accent: "linear-gradient(135deg,#16a34a,#15803d)" },
+
+  // GAMES
+  { id: "snake", name: "Snake", icon: I(Activity), category: "games", Component: Snake, accent: "linear-gradient(135deg,#10b981,#065f46)", defaultWidth: 480, defaultHeight: 600 },
+  { id: "2048", name: "2048", icon: I(Hash), category: "games", Component: Game2048, accent: "linear-gradient(135deg,#f59e0b,#dc2626)", defaultWidth: 480, defaultHeight: 620 },
+  { id: "mines", name: "Minesweeper", icon: I(Bomb), category: "games", Component: Minesweeper, accent: "linear-gradient(135deg,#475569,#1e293b)", defaultWidth: 620, defaultHeight: 700 },
+  { id: "memory", name: "Memory Match", icon: I(BrainIcon), category: "games", Component: MemoryMatch, accent: "linear-gradient(135deg,#ec4899,#8b5cf6)", defaultWidth: 540, defaultHeight: 620 },
+  { id: "tictactoe", name: "Tic Tac Toe", icon: I(CircleDot), category: "games", Component: TicTacToe, accent: "linear-gradient(135deg,#0ea5e9,#6366f1)", defaultWidth: 380, defaultHeight: 500 },
+
+  // additional lifestyle/productivity
+  { id: "habits", name: "Habits", icon: I(Activity), category: "lifestyle", Component: HabitTracker, accent: "linear-gradient(135deg,#22c55e,#0891b2)" },
+  { id: "expenses", name: "Expenses", icon: I(Wallet), category: "lifestyle", Component: ExpenseTracker, accent: "linear-gradient(135deg,#10b981,#059669)" },
+  { id: "weather", name: "Weather", icon: I(CloudSun), category: "lifestyle", Component: Weather, accent: "linear-gradient(135deg,#0ea5e9,#fbbf24)" },
+  { id: "piano", name: "Piano", icon: I(Music), category: "creative", Component: PianoApp, accent: "linear-gradient(135deg,#1e293b,#7c3aed)", defaultWidth: 720, defaultHeight: 460 },
 ];
 
 export const CATEGORY_LABELS: Record<string, string> = {
@@ -111,6 +124,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
   lifestyle: "Lifestyle",
   creative: "Creative",
   tech: "Developer & Tech",
+  games: "Games",
 };
 
 // Custom-app sandbox component (HTML or URL iframe)
