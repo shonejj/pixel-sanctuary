@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { launchApp, useWebOS, setLauncher, setStartMenu } from "./kernel";
+import { launchApp, useWebOS, setLauncher, setStartMenu, closeWindow } from "./kernel";
 import { CATEGORY_LABELS } from "./apps";
 import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 
 export function Dock() {
   const apps = useWebOS(s => s.apps);
