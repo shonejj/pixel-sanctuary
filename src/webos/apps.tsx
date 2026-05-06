@@ -37,12 +37,22 @@ import { JsonFormatter } from "./apps/JsonFormatter";
 import { CodeEditor } from "./apps/CodeEditor";
 import { DuckDbApp } from "./apps/DuckDbApp";
 import { ClockApp } from "./apps/ClockApp";
+import { Snake } from "./apps/games/Snake";
+import { Game2048 } from "./apps/games/Game2048";
+import { Minesweeper } from "./apps/games/Minesweeper";
+import { MemoryMatch } from "./apps/games/MemoryMatch";
+import { TicTacToe } from "./apps/games/TicTacToe";
+import { HabitTracker } from "./apps/HabitTracker";
+import { ExpenseTracker } from "./apps/ExpenseTracker";
+import { Weather } from "./apps/Weather";
+import { PianoApp } from "./apps/PianoApp";
 import {
   DollarSign, Skull, Scale, Search, MessageSquareText, ImageOff, Brain, Globe,
   Palette, Gavel, Regex, Lock, KeyRound, Clock, Camera, Shield, Table, FileJson,
   GitCompare, Eye, StickyNote, FolderOpen, Calculator as CalcIcon, ListTodo,
   Timer, TimerReset, QrCode, KeySquare, ArrowRightLeft, FileText, Brush,
-  CalendarDays, Code2, Database,
+  CalendarDays, Code2, Database, Gamepad2, Bomb, Hash, Brain as BrainIcon,
+  CircleDot, Activity, Wallet, CloudSun, Music,
 } from "lucide-react";
 
 const I = (Icon: any, color = "#fff") => <Icon size={22} color={color} />;
