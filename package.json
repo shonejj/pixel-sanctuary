@@ -16,6 +16,7 @@
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",
     "@duckdb/duckdb-wasm": "^1.33.1-dev45.0",
+    "@electric-sql/pglite": "^0.5.3",
     "@hookform/resolvers": "^5.2.2",
     "@monaco-editor/react": "^4.7.0",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -63,6 +64,7 @@
     "lucide-react": "^0.575.0",
     "marked": "^18.0.3",
     "monaco-editor": "^0.55.1",
+    "nitro": "3.0.260603-beta",
     "qrcode": "^1.5.4",
     "react": "^19.2.0",
     "react-day-picker": "^9.14.0",
@@ -80,7 +82,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
-    "@lovable.dev/vite-tanstack-config": "^1.4.0",
+    "@lovable.dev/vite-tanstack-config": "2.3.2",
     "@types/diff": "^8.0.0",
     "@types/node": "^22.16.5",
     "@types/react": "^19.2.0",

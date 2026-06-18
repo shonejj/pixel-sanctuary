@@ -46,13 +46,23 @@ import { HabitTracker } from "./apps/HabitTracker";
 import { ExpenseTracker } from "./apps/ExpenseTracker";
 import { Weather } from "./apps/Weather";
 import { PianoApp } from "./apps/PianoApp";
+import { CameraApp } from "./apps/CameraApp";
+import { BrowserApp } from "./apps/BrowserApp";
+import { PgliteApp } from "./apps/PgliteApp";
+import { WordPressApp } from "./apps/WordPressApp";
+import { VoiceRecorder } from "./apps/VoiceRecorder";
+import { ScreenRecorder } from "./apps/ScreenRecorder";
+import { Translator } from "./apps/Translator";
+import { SystemMonitor } from "./apps/SystemMonitor";
+import { EmbedGuide } from "./apps/EmbedGuide";
 import {
   DollarSign, Skull, Scale, Search, MessageSquareText, ImageOff, Brain, Globe,
   Palette, Gavel, Regex, Lock, KeyRound, Clock, Camera, Shield, Table, FileJson,
   GitCompare, Eye, StickyNote, FolderOpen, Calculator as CalcIcon, ListTodo,
   Timer, TimerReset, QrCode, KeySquare, ArrowRightLeft, FileText, Brush,
   CalendarDays, Code2, Database, Gamepad2, Bomb, Hash, Brain as BrainIcon,
-  CircleDot, Activity, Wallet, CloudSun, Music,
+  CircleDot, Activity, Wallet, CloudSun, Music, Compass, Mic, Monitor as MonitorIcon,
+  Languages, Gauge, BookOpen,
 } from "lucide-react";
 
 const I = (Icon: any, color = "#fff") => <Icon size={22} color={color} />;
@@ -116,6 +126,23 @@ export const ALL_APPS: AppDef[] = [
   { id: "expenses", name: "Expenses", icon: I(Wallet), category: "lifestyle", Component: ExpenseTracker, accent: "linear-gradient(135deg,#10b981,#059669)" },
   { id: "weather", name: "Weather", icon: I(CloudSun), category: "lifestyle", Component: Weather, accent: "linear-gradient(135deg,#0ea5e9,#fbbf24)" },
   { id: "piano", name: "Piano", icon: I(Music), category: "creative", Component: PianoApp, accent: "linear-gradient(135deg,#1e293b,#7c3aed)", defaultWidth: 720, defaultHeight: 460 },
+
+  // MEDIA / HARDWARE
+  { id: "camera", name: "Camera", icon: I(Camera), category: "creative", Component: CameraApp, accent: "linear-gradient(135deg,#06b6d4,#0ea5e9)", defaultWidth: 900, defaultHeight: 640 },
+  { id: "voice", name: "Voice Recorder", icon: I(Mic), category: "creative", Component: VoiceRecorder, accent: "linear-gradient(135deg,#ef4444,#f59e0b)", defaultWidth: 520, defaultHeight: 640 },
+  { id: "screen-rec", name: "Screen Recorder", icon: I(MonitorIcon), category: "tech", Component: ScreenRecorder, accent: "linear-gradient(135deg,#7c3aed,#06b6d4)", defaultWidth: 720, defaultHeight: 560 },
+
+  // INTERNET
+  { id: "browser", name: "Browser", icon: I(Compass), category: "system", Component: BrowserApp, accent: "linear-gradient(135deg,#3b82f6,#8b5cf6)", defaultWidth: 1100, defaultHeight: 720 },
+  { id: "translator", name: "Translator", icon: I(Languages), category: "productivity", Component: Translator, accent: "linear-gradient(135deg,#0ea5e9,#22c55e)", defaultWidth: 720, defaultHeight: 520 },
+
+  // WASM STACKS
+  { id: "pglite", name: "Postgres (PGlite)", icon: I(Database), category: "tech", Component: PgliteApp, accent: "linear-gradient(135deg,#1e3a8a,#0ea5e9)", defaultWidth: 1000, defaultHeight: 700 },
+  { id: "wordpress", name: "WordPress", icon: I(Globe), category: "tech", Component: WordPressApp, accent: "linear-gradient(135deg,#21759b,#1e40af)", defaultWidth: 1200, defaultHeight: 800 },
+
+  // SYSTEM
+  { id: "sysmon", name: "System Monitor", icon: I(Gauge), category: "system", Component: SystemMonitor, accent: "linear-gradient(135deg,#475569,#0f172a)", defaultWidth: 560, defaultHeight: 620 },
+  { id: "docs", name: "Docs & Embed", icon: I(BookOpen), category: "system", Component: EmbedGuide, accent: "linear-gradient(135deg,#8b5cf6,#ec4899)", defaultWidth: 980, defaultHeight: 680, singleton: true },
 ];
 
 export const CATEGORY_LABELS: Record<string, string> = {
