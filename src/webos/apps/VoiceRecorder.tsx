@@ -11,7 +11,7 @@ export function VoiceRecorder() {
   const recRef = useRef<MediaRecorder | null>(null);
   const chunks = useRef<Blob[]>([]);
   const startedRef = useRef(0);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number>(0);
 
   async function start() {
     setErr(null);
